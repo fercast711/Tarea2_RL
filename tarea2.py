@@ -87,7 +87,7 @@ def evaluate_agent(agent_type: str, q_table: np.ndarray = None, episodes: int = 
         seeds (np.ndarray): array de semillas para inicializar el entorno en cada episodio
         render (str, opcional): modo de renderizado del entorno (por ejemplo, "human" para visualización)
     Retorna:
-        None
+        dict: Diccionario con métricas de desempeño del agente
     
     Muestra estadísticas de desempeño del agente:
         - Promedio de pasos por episodio
@@ -151,7 +151,7 @@ def plot_line(rewards_mean1, rewards_mean2, label1, label2, title, xlabel, ylabe
     plt.show()
 
 def plot_bar(metrics1, metrics2, label1, label2, title, xlabel, ylabel):
-    sns.set_style(style="whitegrid")
+    sns.set_style(style="whitegrid") 
     sns.barplot(x=[label1, label2], y=[metrics1, metrics2])
     plt.title(title)
     plt.xlabel(xlabel)
@@ -159,24 +159,24 @@ def plot_bar(metrics1, metrics2, label1, label2, title, xlabel, ylabel):
     plt.show()
 
 def main():
-    np.random.seed(44)
-    seeds = np.random.randint(0, 10000, size=2000)
+    np.random.seed(44) # Semilla para reproducibilidad
+    seeds = np.random.randint(0, 10000, size=2000) # Semillas para cada episodio
 
     print("Iniciando entrenamiento del agente Q-Learning...\n")
-    q_table = qlearning_train_agent(episodes=2000, alpha=1.0, gamma=0.99, epsilon=1.0, decay_rate=0.995, seeds=seeds)
+    q_table = qlearning_train_agent(episodes=2000, alpha=1.0, gamma=0.99, epsilon=1.0, decay_rate=0.995, seeds=seeds) # Entrenar agente Q-Learning
     print("\nEntrenamiento completado.")
 
     print("\nIniciando entrenamiento del agente Aleatorio...\n")
-    random_train_agent(episodes=2000, seeds=seeds)
+    random_train_agent(episodes=2000, seeds=seeds) # Entrenar agente aleatorio
     print("\nEntrenamiento completado.")
 
-    np.random.seed(42)
-    seeds = np.random.randint(0, 10000, size=100)
+    np.random.seed(42) # Semilla para reproducibilidad en evaluación
+    seeds = np.random.randint(0, 10000, size=100) # Semillas para cada episodio de evaluación
     print("\nEvaluando los agentes entrenados...")
     print("\nEvaluando agente Q-Learning:")
-    metrics_q = evaluate_agent("qlearning", q_table, episodes=100, seeds=seeds)
+    metrics_q = evaluate_agent("qlearning", q_table, episodes=100, seeds=seeds) # Evaluar agente Q-Learning
     print("\nEvaluando agente Aleatorio:")
-    metrics_random = evaluate_agent("random", episodes=100, seeds=seeds)
+    metrics_random = evaluate_agent("random", episodes=100, seeds=seeds) # Evaluar agente Aleatorio
     print("\nEvaluación completada.")
 
     plot_line(metrics_q["avg_reward"], metrics_random["avg_reward"], "Q-Learning", "Random", "Recompensa Media por Episodio", "Episodios", "Recompensa Media")
