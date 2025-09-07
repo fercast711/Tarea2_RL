@@ -13,12 +13,22 @@ Este proyecto implementa y compara dos agentes para el entorno Taxi-v3 de OpenAI
 
 ## Ejecución
 
-1. Instala las dependencias:
+1. Crear entorno virtual
+	```bash
+	python -m venv venv
+	```
+
+2. Activar entorno virtual en windows
+	```bash
+	.\venv\Scripts\activate
+	```
+
+3. Instala las dependencias:
 	```bash
 	pip install -r requirements.txt
 	```
 
-2. Ejecuta el script principal:
+4. Ejecuta el script principal:
 	```bash
 	python tarea2.py
 	```
